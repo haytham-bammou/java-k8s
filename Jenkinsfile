@@ -1,5 +1,9 @@
 pipeline {
-    agent { label 'java' }
+    agent {
+        kubernetes {
+            inheritFrom 'java'
+        }
+    }
 
     environment {
         REGISTRY = 'nexus-nexus3.nexus.svc.cluster.local:8082'
