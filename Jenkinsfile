@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 container('java') {
-                    sh "buildah bud --tls-verify=false -t ${REGISTRY}/${PROJECT}:${TAG} -f Dockerfile ."
+                    sh "buildah bud --tls-verify=false --storage-driver vfs --isolation chroot -t ${REGISTRY}/${PROJECT}:${TAG} -f Dockerfile ."
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline {
                 container('java') {
                     withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         sh "buildah login --tls-verify=false -u \$USER -p \$PASS ${REGISTRY}"
-                        sh "buildah push --tls-verify=false ${REGISTRY}/${PROJECT}:${TAG}"
+                        sh "buildah push --tls-verify=false --storage-driver vfs --isolation chroot ${REGISTRY}/${PROJECT}:${TAG}"
                     }
                 }
             }
