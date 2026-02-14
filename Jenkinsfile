@@ -12,15 +12,6 @@ pipeline {
     }
 
     stages {
-        stage('Init') {
-            steps {
-                container('java') {
-                    script {
-                        TAG = sh(script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
-                    }
-                }
-            }
-        }
 
         stage('Build') {
             steps {
