@@ -9,6 +9,8 @@ pipeline {
         REGISTRY = 'nexus-nexus3.nexus.svc.cluster.local:8082'
         PROJECT  = 'demo'
         TAG      = ''
+        PATH      = "/usr/lib/jvm/java-21-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk'
     }
 
     stages {
