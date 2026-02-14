@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            inheritFrom 'jnlp'
+            inheritFrom 'java'
         }
     }
 
