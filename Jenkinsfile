@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            inheritFrom 'java'
+            inheritFrom 'jnlp'
         }
     }
 
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                container('java') {
+                container('jnlp') {
                     sh "mvn clean package -DskipTests"
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                container('java') {
+                container('jnlp') {
                     sh "mvn test"
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                container('java') {
+                container('jnlp') {
                     sh "buildah bud --tls-verify=false -t ${REGISTRY}/${PROJECT}:${TAG} -f Dockerfile ."
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                container('java') {
+                container('jnlp') {
                     withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         sh "buildah login --tls-verify=false -u \$USER -p \$PASS ${REGISTRY}"
                         sh "buildah push --tls-verify=false ${REGISTRY}/${PROJECT}:${TAG}"
@@ -59,7 +59,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                container('java') {
+                container('jnlp') {
                     sh "buildah rmi ${REGISTRY}/${PROJECT}:${TAG} || true"
                 }
             }
