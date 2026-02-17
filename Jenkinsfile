@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            inheritFrom 'java-dev'
+            inheritFrom 'java'
         }
     }
 
