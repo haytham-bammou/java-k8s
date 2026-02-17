@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        REGISTRY = 'fatoura-docker.apps.dev.fatoura.gov.ma'
+        REGISTRY = 'nexus-nexus3.nexus.svc.cluster.local:8082'
         PROJECT  = 'java-demo'
         TAG      = '1.0.0-SNAPSHOT'
     }
@@ -46,7 +46,7 @@ pipeline {
             }
             steps {
                 container('java') {
-                    withCredentials([usernamePassword(credentialsId: 'nexus-creds-tmp', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         sh "buildah login --tls-verify=false -u \$USER -p \$PASS ${REGISTRY}"
                         sh "buildah push --tls-verify=false ${REGISTRY}/${PROJECT}:${TAG}"
                     }
