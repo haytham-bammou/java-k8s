@@ -8,7 +8,7 @@ pipeline {
     environment {
         REGISTRY = 'fatoura-docker.apps.dev.fatoura.gov.ma'
         PROJECT  = 'java-demo'
-        TAG      = ''
+        TAG      = '1.0.0-SNAPSHOT'
     }
 
     stages {
