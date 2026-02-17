@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 container('java') {
-                    sh "sleep 20m && mvn clean package -DskipTests"
+                    sh "mvn clean package -DskipTests"
                 }
             }
         }
